@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntelligentFormsAPI", "IntelligentFormsAPI.csproj", "{31A79B4F-2C02-4F43-BBBB-1EFD20F13F90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelligentFormsAPI", "IntelligentFormsAPI.csproj", "{31A79B4F-2C02-4F43-BBBB-1EFD20F13F90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntelligentFormsAPI.Application", "..\IntelligentFormsAPI.Application\IntelligentFormsAPI.Application.csproj", "{27E1FB46-4B6C-4BC8-8419-EB652B856DA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntelligentFormsAPI.Domain", "..\IntelligentFormsAPI.Domain\IntelligentFormsAPI.Domain.csproj", "{E3BDFFE5-19E6-4B49-BB12-F18D33C3C601}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntelligentFormsAPI.Infrastructure", "..\IntelligentFormsAPI.Infrastructure\IntelligentFormsAPI.Infrastructure.csproj", "{6DC2992D-4D27-4919-A5DC-2B7F19B4BE1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{31A79B4F-2C02-4F43-BBBB-1EFD20F13F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31A79B4F-2C02-4F43-BBBB-1EFD20F13F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31A79B4F-2C02-4F43-BBBB-1EFD20F13F90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27E1FB46-4B6C-4BC8-8419-EB652B856DA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27E1FB46-4B6C-4BC8-8419-EB652B856DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27E1FB46-4B6C-4BC8-8419-EB652B856DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27E1FB46-4B6C-4BC8-8419-EB652B856DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3BDFFE5-19E6-4B49-BB12-F18D33C3C601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3BDFFE5-19E6-4B49-BB12-F18D33C3C601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3BDFFE5-19E6-4B49-BB12-F18D33C3C601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3BDFFE5-19E6-4B49-BB12-F18D33C3C601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DC2992D-4D27-4919-A5DC-2B7F19B4BE1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DC2992D-4D27-4919-A5DC-2B7F19B4BE1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DC2992D-4D27-4919-A5DC-2B7F19B4BE1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DC2992D-4D27-4919-A5DC-2B7F19B4BE1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
