@@ -1,33 +1,63 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IntelligentFormsAPI.Application.Interfaces;
+using IntelligentFormsAPI.Application.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Cosmos;
 
 namespace IntelligentFormsAPI.Controllers
 {
+    [Route("api/v1/[controller]"), ApiController]
     public class UserController : ControllerBase
     {
-        private readonly CosmosClient _cosmosClient;
-        private readonly string _databaseId = "Users";
-        private readonly string _containerId = "Items";
+        private readonly ILogger<UserController> logger;
+        private readonly IUserService userService;
 
-        public UserController(CosmosClient cosmosClient)
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
-            _cosmosClient = cosmosClient;
+            this.userService = userService;
+            this.logger = logger;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDocument(string id)
+        [HttpPost, Route("SignUp")]
+        public Task<IActionResult> CreateAccount(UserSignUpDto createUserDto)
         {
-            try
-            {
-                Microsoft.Azure.Cosmos.Container container = _cosmosClient.GetContainer(_databaseId, _containerId);
-                var itemResponse = await container.ReadItemAsync<dynamic>(id, new PartitionKey(id));
+            throw new NotImplementedException();
+        }
 
-                return Ok(itemResponse.Resource.ToString());
-            }
-            catch (CosmosException ex)
-            {
-                return StatusCode((int)ex.StatusCode, ex.Message);
-            }
+        [HttpPost, Route("SignIn")]
+        public Task<IActionResult> SignIn(UserSignInDto signInDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPatch, Route("{id}")]
+        public Task<IActionResult> UpdateUser(Guid id, dynamic updateUserDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost, Route("LogOut")]
+        public Task<IActionResult> LogOut()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet, Route("{id}")]
+        public Task<IActionResult> GetUser(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost, Route("forgotPassword")]
+        public Task<IActionResult> ForgotPassword(string forgotPassword)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost, Route("resetPassword")]
+        public Task<IActionResult> ResetPassword(string resetPassword)
+        {
+            throw new NotImplementedException();
         }
     }
 }
