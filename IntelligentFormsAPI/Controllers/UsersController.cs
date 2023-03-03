@@ -1,18 +1,17 @@
 ﻿using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Models;
-using Microsoft.AspNetCore.Authorization;
+using IntelligentFormsAPI.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Cosmos;
 
 namespace IntelligentFormsAPI.Controllers
 {
     [Route("api/v1/[controller]"), ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly ILogger<UserController> logger;
+        private readonly ILogger<UsersController> logger;
         private readonly IUserService userService;
 
-        public UserController(IUserService userService, ILogger<UserController> logger)
+        public UsersController(IUserService userService, ILogger<UsersController> logger)
         {
             this.userService = userService;
             this.logger = logger;
@@ -43,18 +42,24 @@ namespace IntelligentFormsAPI.Controllers
         }
 
         [HttpGet, Route("{id}")]
-        public Task<IActionResult> GetUser(Guid id)
+        public async Task<ActionResult<User>> GetUser()
         {
-            throw new NotImplementedException();
+            return Ok(new User {
+                Id = Guid.NewGuid(),
+                Name = "John Doe",
+                Address = "1234 Main St",
+                EmailAddress = "johndoe@gmail.com",
+            });
+          
         }
 
-        [HttpPost, Route("forgotPassword")]
+        [HttpPost, Route("ForgotPassword")]
         public Task<IActionResult> ForgotPassword(string forgotPassword)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost, Route("resetPassword")]
+        [HttpPost, Route("ResetPassword")]
         public Task<IActionResult> ResetPassword(string resetPassword)
         {
             throw new NotImplementedException();
