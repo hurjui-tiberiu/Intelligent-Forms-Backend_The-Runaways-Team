@@ -1,8 +1,10 @@
 using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Services;
+using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
 using IntelligentFormsAPI.Infrastructure.Repositories;
 using Microsoft.Azure.Cosmos;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +14,12 @@ builder.Services.AddSingleton(new CosmosClient("https://f447355d-0ee0-4-231-b9ee
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddDbContext<EFContext>(options =>
+    options.UseCosmos("AccountEndpoint=https://f447355d-0ee0-4-231-b9ee.documents.azure.com:443/;AccountKey=FSQsotIEON6q0I18CON0jelb5ZJFXxkfoVNvWde9FfBQxO0o5pmvgUaRLXgFYIMOvS8Eh8EG2ViJACDbGZaloA==;",
+    "f447355d-0ee0-4-231-b9ee"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddAuthentication();
+builder.Services.AddAuthentication();
 
 var app = builder.Build();
 
@@ -26,8 +30,8 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-/*app.UseAuthorization();
-app.UseAuthentication();*/
+app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 
