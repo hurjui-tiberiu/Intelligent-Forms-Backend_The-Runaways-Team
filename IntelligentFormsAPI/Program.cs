@@ -14,7 +14,7 @@ builder.Services.AddSingleton(new CosmosClient("https://f447355d-0ee0-4-231-b9ee
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddDbContext<EFContext>(options =>
+builder.Services.AddDbContext<EFcontext>(options =>
     options.UseCosmos("AccountEndpoint=https://f447355d-0ee0-4-231-b9ee.documents.azure.com:443/;AccountKey=FSQsotIEON6q0I18CON0jelb5ZJFXxkfoVNvWde9FfBQxO0o5pmvgUaRLXgFYIMOvS8Eh8EG2ViJACDbGZaloA==;",
     "f447355d-0ee0-4-231-b9ee"));
 builder.Services.AddEndpointsApiExplorer();
