@@ -1,5 +1,7 @@
 ﻿using IntelligentFormsAPI.Domain.Entities;
+using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +12,35 @@ namespace IntelligentFormsAPI.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public Task<User> CreateAccount(User user)
+        private readonly EFContext context;
+
+        public UserRepository(EFContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
         }
 
-        public Task Login()
+        public async Task<User> GetUserById(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await context.Users.FindAsync(id);
+            return user;
         }
 
-        public Task LogOut()
+        public async Task<User> GetUserByEmail(string email)
         {
-            throw new NotImplementedException();
+            var user = await context.Users.FirstOrDefaultAsync(x => x.EmailAddress.Equals(email));
+            return user;
         }
 
-        public Task SignUp()
+        public async Task CreateUserAsync(User user)
         {
-            throw new NotImplementedException();
+            await context.Users.AddAsync(user);
+            await context.SaveChangesAsync();
         }
 
-        public Task<User> UpdateUser(User user)
+        public async Task UpdateUserAsync(User user)
         {
-            throw new NotImplementedException();
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
         }
     }
 }
