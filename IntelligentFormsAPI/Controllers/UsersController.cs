@@ -1,6 +1,6 @@
 ﻿using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Models;
-using IntelligentFormsAPI.Domain.Entities;
+using IntelligentFormsAPI.Infrastructure.Contexts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntelligentFormsAPI.Controllers
@@ -18,51 +18,78 @@ namespace IntelligentFormsAPI.Controllers
         }
 
         [HttpPost, Route("SignUp")]
-        public Task<IActionResult> CreateAccount(UserSignUpDto createUserDto)
+        public async Task<IActionResult> SignUp(UserSignUpDto userSignUpDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await userService.SignUpAsync(userSignUpDto);
+                
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                
+                return BadRequest();
+            }
+
         }
 
         [HttpPost, Route("SignIn")]
-        public Task<IActionResult> SignIn(UserSignInDto signInDto)
+        public async Task<IActionResult> SignIn(UserSignInDto signInDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await userService.GetUserByEmailAsync(signInDto.EmailAddress);
+
+                if (user is null)
+                    return BadRequest();
+
+                if (signInDto.Password.Equals(user.Password))
+                    return Ok(); 
+                else return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                
+                return BadRequest();
+            }
         }
 
         [HttpPatch, Route("{id}")]
-        public Task<IActionResult> UpdateUser(Guid id, dynamic updateUserDto)
+        public async Task<IActionResult> UpdateUser(Guid id, dynamic patchUserDto)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                await userService.UpdateUserAsync(id, patchUserDto);
 
-        [HttpPost, Route("LogOut")]
-        public Task<IActionResult> LogOut()
-        {
-            throw new NotImplementedException();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                
+                return BadRequest();
+            }
+
         }
 
         [HttpGet, Route("{id}")]
-        public async Task<ActionResult<User>> GetUser()
+        public async Task<ActionResult<UserDto>> GetUserById(Guid id)
         {
-            return Ok(new User {
-                Id = Guid.NewGuid(),
-                Name = "John Doe",
-                Address = "1234 Main St",
-                EmailAddress = "johndoe@gmail.com",
-            });
-          
-        }
-
-        [HttpPost, Route("ForgotPassword")]
-        public Task<IActionResult> ForgotPassword(string forgotPassword)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost, Route("ResetPassword")]
-        public Task<IActionResult> ResetPassword(string resetPassword)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var userDto = await userService.GetUserById(id);
+                
+                return userDto;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                
+                return BadRequest();
+            }
         }
     }
 }

@@ -1,42 +1,60 @@
-﻿using IntelligentFormsAPI.Application.Interfaces;
+﻿using AutoMapper;
+using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Models;
 using IntelligentFormsAPI.Domain.Entities;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace IntelligentFormsAPI.Application.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
+        private readonly IMapper mapper;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             this.userRepository = userRepository;
+            this.mapper = mapper;
         }
 
-        public Task<string> Login()
+        public async Task<UserDto> GetUserById(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await userRepository.GetUserById(id);
+            return mapper.Map<UserDto>(user);
         }
 
-        public Task LogOut()
+        public async Task<User> GetUserByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            var user = await userRepository.GetUserByEmail(email);
+            return user;
         }
 
-        public Task ResetPassword(string Password)
+        public async Task<User> Login(string email)
         {
-            throw new NotImplementedException();
+            var user = await userRepository.GetUserByEmail(email);
+            return user;
         }
 
-        public Task SignUp()
+        public async Task SignUpAsync(UserSignUpDto userSignUpDto)
         {
-            throw new NotImplementedException();
+            var user = mapper.Map<User>(userSignUpDto);
+            await userRepository.CreateUserAsync(user);
         }
 
-        public Task<User> UpdateUser(User user)
+        public async Task<User> UpdateUserAsync(Guid id, dynamic userPatchDto)
         {
-            throw new NotImplementedException();
+            var patchUserDto = JsonConvert.DeserializeObject<UserPatchDto>(userPatchDto.ToString());
+            var user = await userRepository.GetUserById(id);
+            if (user != null)
+            {
+                var mappedUser = mapper.Map<UserPatchDto, User>(patchUserDto, user);
+                await userRepository.UpdateUserAsync(mappedUser);
+                return mappedUser;
+            }
+
+            return null;
         }
     }
 }

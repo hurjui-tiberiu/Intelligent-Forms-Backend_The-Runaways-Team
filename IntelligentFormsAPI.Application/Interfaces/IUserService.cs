@@ -4,16 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace IntelligentFormsAPI.Application.Interfaces
 {
     public interface IUserService
     {
-        public Task<string> Login();
-        public Task LogOut();
-        public Task<User> UpdateUser(User user);
-        public Task SignUp();
-        public Task ResetPassword(string Password);
+        public Task<User> UpdateUserAsync(Guid id, dynamic patchUserDto);
+        public Task SignUpAsync(UserSignUpDto userSignUpDto);
+        public Task<UserDto> GetUserById(Guid id);
+        public Task<User> GetUserByEmailAsync(string email);
     }
 }

@@ -9,10 +9,9 @@ namespace IntelligentFormsAPI.Infrastructure.Interfaces
 {
     public interface IUserRepository
     {
-        public Task<User> CreateAccount(User user);
-        public Task Login();
-        public Task LogOut();
-        public Task<User> UpdateUser(User user);
-        public Task SignUp();
+        public Task<User> GetUserByEmail(string email);
+        public Task UpdateUserAsync(User user);
+        public Task CreateUserAsync(User user);
+        public Task<User> GetUserById(Guid id);
     }
 }
