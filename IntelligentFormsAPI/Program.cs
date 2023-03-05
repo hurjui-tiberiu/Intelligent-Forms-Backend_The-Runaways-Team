@@ -12,6 +12,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISubmissionRepository, SubmissionRepository>();
+builder.Services.AddScoped<ISubmissionService, SubmissionService>();
 builder.Services.AddDbContext<EFContext>(options =>
     options.UseCosmos("https://f447355d-0ee0-4-231-b9ee.documents.azure.com:443/",
     "FSQsotIEON6q0I18CON0jelb5ZJFXxkfoVNvWde9FfBQxO0o5pmvgUaRLXgFYIMOvS8Eh8EG2ViJACDbGZaloA==",
