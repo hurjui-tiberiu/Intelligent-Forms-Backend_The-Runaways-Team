@@ -20,9 +20,11 @@ namespace IntelligentFormsAPI.Infrastructure.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToContainer("Users").HasPartitionKey(u=>u.Id);
+            modelBuilder.Entity<Submission>().ToContainer("Submissions").HasPartitionKey(s => s.Id);
         }
 
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Submission> Submissions { get; set; }
     }
 }
