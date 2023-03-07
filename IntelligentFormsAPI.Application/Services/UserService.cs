@@ -29,6 +29,7 @@ namespace IntelligentFormsAPI.Application.Services
         {
             var user = await userRepository.GetUserByEmail(email);
             return user;
+            
         }
 
         public async Task<User> Login(string email)
