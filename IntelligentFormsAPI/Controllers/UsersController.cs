@@ -40,20 +40,15 @@ namespace IntelligentFormsAPI.Controllers
         {
             try
             {
-                var user = await userService.GetUserByEmailAsync(signInDto.EmailAddress);
+                var user = await userService.SignInAsync(signInDto);
 
-                if (user is null)
-                    return BadRequest();
-
-                if (signInDto.Password.Equals(user.Password))
-                    return Ok(); 
-                else return BadRequest();
+                return Ok(user);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
                 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
