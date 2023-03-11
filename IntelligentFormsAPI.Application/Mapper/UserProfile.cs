@@ -20,6 +20,8 @@ namespace IntelligentFormsAPI.Application.Mapper
             CreateMap<UserPatchDto, User>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
+            CreateMap<User, UserSignInResponseDto>();
+
         }
     }
 }

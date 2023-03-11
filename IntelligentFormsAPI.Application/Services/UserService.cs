@@ -25,17 +25,29 @@ namespace IntelligentFormsAPI.Application.Services
             return mapper.Map<UserDto>(user);
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<UserDto> GetUserByEmailAsync(string email)
         {
             var user = await userRepository.GetUserByEmail(email);
-            return user;
+
             
+            
+
+            return mapper.Map<UserDto>(user);
+
+
         }
 
-        public async Task<User> Login(string email)
+        public async Task<UserSignInResponseDto> SignInAsync(UserSignInDto userLoginDto)
         {
-            var user = await userRepository.GetUserByEmail(email);
-            return user;
+            var user = await userRepository.GetUserByEmail(userLoginDto.EmailAddress);
+
+            if (user is null)
+                throw new UnauthorizedAccessException("Account does not exist");
+            
+            if (!user.EmailAddress.Equals(userLoginDto.EmailAddress) || !userLoginDto.Password.Equals(user.Password))
+                throw new UnauthorizedAccessException("Invalid email or password");
+            
+            return mapper.Map<UserSignInResponseDto>(user);
         }
 
         public async Task SignUpAsync(UserSignUpDto userSignUpDto)
