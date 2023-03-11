@@ -8,8 +8,10 @@ namespace IntelligentFormsAPI.Domain.Enums
 {
     public enum ScannableDocumentType
     {
-        CI,
-        Permis,
-        Pasaport
+       Any_Document,
+       Identity_Card,
+       Passport_Card,
+       Birth_Certificare,
+       Vehicle_Identification_Number
     }
 }

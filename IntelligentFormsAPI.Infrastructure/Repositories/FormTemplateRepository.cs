@@ -1,6 +1,7 @@
 ﻿using IntelligentFormsAPI.Domain.Entities;
 using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,19 +28,35 @@ namespace IntelligentFormsAPI.Infrastructure.Repositories
             return form;
         }
 
-        public async Task DeleteForm(Guid Id)
+        public async Task DeleteFormByIdAsync(FormTemplate formTemplate)
         {
-            throw new NotImplementedException();
+            efContext.FormTemplates.Remove(formTemplate);
+            
+            await efContext.SaveChangesAsync();
         }
 
-        public async Task<FormTemplate> GetForm(Guid Id)
+        public async Task<FormTemplate?> GetFormByIdAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            var form = await efContext.FormTemplates.FindAsync(Id);
+
+            return form;
+        }
+
+        public async Task<List<FormTemplate>?> GetFormsByUserId(Guid userId)
+        {
+            var forms = await efContext.FormTemplates.Where(x => x.UserId == userId).ToListAsync();
+
+            return forms;
         }
 
         public async Task<FormTemplate> UpdateForm(FormTemplate form)
         {
-            throw new NotImplementedException();
+            efContext.FormTemplates.Update(form);
+            await efContext.SaveChangesAsync();
+
+            return form;
         }
+
+        
     }
 }

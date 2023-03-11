@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using IntelligentFormsAPI.Application.Interfaces;
+using IntelligentFormsAPI.Application.Models.FormTemplate;
 using IntelligentFormsAPI.Application.Models;
 
 namespace IntelligentFormsAPI.Controllers
@@ -16,29 +17,48 @@ namespace IntelligentFormsAPI.Controllers
         {
             this.formService = formService;
             this.logger = logger;
-        }   
+        }  
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<FormTemplateDto>> GetFormTemplateById(Guid id)
         {
             try
             {
-                var formDto = await formService.GetForm(id);
-                return  Ok(formDto);
+                var form = await formService.GetForm(id);
+                return  Ok(form);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
-        
-        [HttpPost]
-        public async Task<ActionResult> AddFormTemplate(FormTemplateDto formDto)
+
+
+        [HttpGet]
+        public async Task<ActionResult<List<FormTemplateDto>>> GetFormTemplatesByUserId([FromQuery] Guid userid)
         {
             try
             {
-               var form=  await formService.AddForm(formDto);
+                var forms = await formService.GetFormsByUserIdAsync(userid);
+
+                return Ok(forms);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddFormTemplate(FormTemplateDto formDto, [FromQuery] Guid userId)
+        {
+            try
+            {
+               var form=  await formService.AddForm(formDto, userId);
                 return Ok(form);
             }
             catch (Exception ex)
@@ -48,8 +68,8 @@ namespace IntelligentFormsAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
-        [HttpPatch("{id}")]
+
+        [HttpPut("{id}")]
         public async Task<ActionResult> UpdateFormTemplate([FromBody]FormTemplateDto formDto, Guid id)
         {
             try
@@ -61,7 +81,7 @@ namespace IntelligentFormsAPI.Controllers
             {
                 logger.LogError(ex.Message);
 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
         
