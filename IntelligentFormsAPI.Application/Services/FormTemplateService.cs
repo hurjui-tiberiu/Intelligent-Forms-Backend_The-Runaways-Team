@@ -1,13 +1,10 @@
-﻿using IntelligentFormsAPI.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IntelligentFormsAPI.Infrastructure.Interfaces;
-using IntelligentFormsAPI.Domain.Entities;
+﻿using AutoMapper;
+using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Models;
-using AutoMapper;
+using IntelligentFormsAPI.Application.Models.FormTemplate;
+using IntelligentFormsAPI.Domain.Entities;
+using IntelligentFormsAPI.Infrastructure.Interfaces;
+using System.Text.Json.Nodes;
 
 namespace IntelligentFormsAPI.Application.Services
 {
@@ -15,36 +12,62 @@ namespace IntelligentFormsAPI.Application.Services
     {
         private readonly IFormTemplateRepository formRepository;
         private readonly IMapper mapper;
-       public FormTemplateService(IFormTemplateRepository formRepository, IMapper mapper)
+        private readonly IUserRepository userRepository;
+        
+        public FormTemplateService(IFormTemplateRepository formRepository, IMapper mapper,
+        IUserRepository userRepository)
         {
             this.formRepository = formRepository;
             this.mapper = mapper;
+            this.userRepository = userRepository;
         }
 
-        public async Task<FormTemplate> AddForm(FormTemplateDto formDto)
+        public async Task<FormTemplate> AddForm(FormTemplateDto formDto, Guid userId)
         {
-            var form = mapper.Map<FormTemplate>(formDto);
+            var user = await userRepository.GetUserById(userId);
             
-          var savedForm = await formRepository.CreateForm(form);
+            if(user is null)
+                throw new ArgumentException("User not found");
+
+            var form = mapper.Map<FormTemplate>(formDto);
+            form.UserId = userId;
+
+            var savedForm = await formRepository.CreateForm(form);
 
             return savedForm;
+        }
+        
+        public async Task<List<FormTemplate>?> GetFormsByUserIdAsync(Guid userID)
+        {
+            var forms = await formRepository.GetFormsByUserId(userID);
+            
+            return forms;
         }
 
         public async Task DeleteForm(Guid Id)
         {
-            await formRepository.DeleteForm(Id);
+            var form = await formRepository.GetFormByIdAsync(Id);
+            
+            await formRepository.DeleteFormByIdAsync(form);
         }
 
-        public async Task<FormTemplateDto> GetForm(Guid Id)
+        public async Task<FormTemplate?> GetForm(Guid Id)
         {
-            return mapper.Map<FormTemplateDto>(await formRepository.GetForm(Id));
+            return await formRepository.GetFormByIdAsync(Id);
         }
-
+        
         public async Task UpdateForm(Guid Id, FormTemplateDto formDto)
         {
-            //TO DO verificam formDto.UserId
-            var form = mapper.Map<FormTemplate>(formDto);
-            
+
+            var form = await formRepository.GetFormByIdAsync(Id);
+
+            if (form is null)
+                throw new ArgumentException("Form does not exist");
+
+            mapper.Map(formDto, form);
+
+            await formRepository.UpdateForm(form);
+
         }
     }
 }

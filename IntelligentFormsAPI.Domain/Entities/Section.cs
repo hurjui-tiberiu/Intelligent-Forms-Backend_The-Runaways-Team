@@ -9,9 +9,9 @@ namespace IntelligentFormsAPI.Domain.Entities
 {
     public class Section
     {
-        public List<string> FieldsId { get; set; }
+        public string SectionName { get; set; }
         public string Content { get; set; }
-        public string Name { get; set; }
         public ScannableDocumentType DocumentType { get; set; }
+        public  List<TemplateField> Fields { get; set; }
     }
 }

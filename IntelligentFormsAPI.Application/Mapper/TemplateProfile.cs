@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using IntelligentFormsAPI.Application.Models;
+using IntelligentFormsAPI.Application.Models.FormTemplate;
 using IntelligentFormsAPI.Domain.Entities;
+using IntelligentFormsAPI.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +16,12 @@ namespace IntelligentFormsAPI.Application.Mapper
         public TemplateProfile()
         {
             CreateMap<FormTemplateDto, FormTemplate>();
-            CreateMap<FormTemplate, FormTemplateDto>();
 
-            CreateMap<SectionDto, Section>();   
-            CreateMap<Section, SectionDto>();
+            CreateMap<SectionDto, Section>()
+                .ForMember(dest => dest.DocumentType,
+                opt => opt.MapFrom(
+                    src => Enum.Parse<ScannableDocumentType>(src.DocumentType)));
 
-            CreateMap<TemplateField, TemplateFieldDto>();
-            CreateMap<TemplateFieldDto, TemplateField>();
         }
     }
 }

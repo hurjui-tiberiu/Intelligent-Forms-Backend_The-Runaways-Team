@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IntelligentFormsAPI.Application.Models.FormTemplate;
+using IntelligentFormsAPI.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace IntelligentFormsAPI.Application.Models
 {
-    public class FormTemplateDtoGet
+    public class FormTemplateDto
     {
-        public Guid Id { get; set; }
-        public Guid UserID { get; set; }
         public string FormTitle { get; set; }
         public int DataRetentionPeriod { get; set; }
-        public List<SectionDtoGet> Sections { get; set; }
+        public List<SectionDto> Sections { get; set; }
+
     }
 }

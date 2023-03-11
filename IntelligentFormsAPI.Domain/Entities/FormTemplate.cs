@@ -9,7 +9,7 @@ namespace IntelligentFormsAPI.Domain.Entities
     public record FormTemplate
     {
        public Guid Id { get; set; }
-       public Guid UserID { get; set; }
+       public Guid UserId { get; set; }
        public string FormTitle { get; set; }
        public int DataRetentionPeriod { get; set; }
        public List<Section> Sections { get; set; }
