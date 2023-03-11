@@ -1,9 +1,13 @@
+using FluentValidation;
 using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Mapper;
+using IntelligentFormsAPI.Application.Models;
+using IntelligentFormsAPI.Application.Models.FluentValidation;
 using IntelligentFormsAPI.Application.Services;
 using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
 using IntelligentFormsAPI.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +22,8 @@ builder.Services.AddScoped<ISubmissionService, SubmissionService>();
 
 builder.Services.AddScoped<IFormTemplateRepository, FormTemplateRepository>();
 builder.Services.AddScoped<IFormTemplateService, FormTemplateService>();
+
+builder.Services.AddScoped<IValidator<UserSignUpDto>, UserSignUpValidator>();
 
 
 builder.Services.AddDbContext<EFContext>(options =>

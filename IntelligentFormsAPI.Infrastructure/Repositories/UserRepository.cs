@@ -2,11 +2,6 @@
 using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IntelligentFormsAPI.Infrastructure.Repositories
 {
@@ -19,22 +14,30 @@ namespace IntelligentFormsAPI.Infrastructure.Repositories
             this.context = context;
         }
 
-        public async Task<User> GetUserById(Guid id)
+        public async Task<User?> GetUserById(Guid id)
         {
             var user = await context.Users.FindAsync(id);
             return user;
         }
 
-        public async Task<User> GetUserByEmail(string email)
+        public async Task<User?> GetUserByEmail(string email)
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.EmailAddress.Equals(email));
             return user;
         }
 
-        public async Task CreateUserAsync(User user)
+        public async Task<User?> GetUserByName(string name)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(name));
+            return user;
+        }
+
+        public async Task<User> CreateUserAsync(User user)
         {
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
+
+            return user;
         }
 
         public async Task UpdateUserAsync(User user)

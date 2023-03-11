@@ -21,13 +21,13 @@ namespace IntelligentFormsAPI.Application.Services
             this.mapper = mapper;
         }
 
-        public async Task AddForm(FormTemplateDto formDto)
+        public async Task<FormTemplate> AddForm(FormTemplateDto formDto)
         {
-            //TO DO verificam formDto.UserId
             var form = mapper.Map<FormTemplate>(formDto);
-            //var field = formDto.Fields; -- tb adaugat service si repo
             
-           await formRepository.CreateForm(form);
+          var savedForm = await formRepository.CreateForm(form);
+
+            return savedForm;
         }
 
         public async Task DeleteForm(Guid Id)
