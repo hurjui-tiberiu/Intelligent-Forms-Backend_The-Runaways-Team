@@ -28,7 +28,12 @@ namespace IntelligentFormsAPI.Application.Services
         public async Task<UserDto> GetUserByEmailAsync(string email)
         {
             var user = await userRepository.GetUserByEmail(email);
+
+            
+            
+
             return mapper.Map<UserDto>(user);
+
 
         }
 
