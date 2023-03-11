@@ -47,7 +47,16 @@ namespace IntelligentFormsAPI.Application.Services
 
         public async Task SignUpAsync(UserSignUpDto userSignUpDto)
         {
-            var user = mapper.Map<User>(userSignUpDto);
+            var user = await userRepository.GetUserByEmail(userSignUpDto.EmailAddress);
+            if(user is not null)
+                throw new InvalidOperationException("Account with provided email already exists");
+
+            user = await userRepository.GetUserByName(userSignUpDto.Name);
+            if (user is not null)
+                throw new InvalidOperationException("Account with provided name already exists");
+
+            user = mapper.Map<User>(userSignUpDto);
+            
             await userRepository.CreateUserAsync(user);
         }
 

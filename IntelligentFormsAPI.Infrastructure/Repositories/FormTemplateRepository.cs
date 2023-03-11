@@ -1,4 +1,5 @@
 ﻿using IntelligentFormsAPI.Domain.Entities;
+using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,20 @@ namespace IntelligentFormsAPI.Infrastructure.Repositories
 {
     public class FormTemplateRepository : IFormTemplateRepository
     {
+
+        private readonly EFContext efContext;
+
+        public  FormTemplateRepository(EFContext efContext)
+        {
+            this.efContext = efContext;
+        }
+
         public async Task<FormTemplate> CreateForm(FormTemplate form)
         {
-            throw new NotImplementedException();
+            efContext.FormTemplates.Add(form);
+            await efContext.SaveChangesAsync();
+
+            return form;
         }
 
         public async Task DeleteForm(Guid Id)

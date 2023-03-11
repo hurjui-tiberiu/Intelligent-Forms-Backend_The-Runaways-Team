@@ -10,7 +10,7 @@ namespace IntelligentFormsAPI.Application.Interfaces
 {
     public interface IFormTemplateService
     {
-        public Task AddForm(FormTemplateDto form);
+        public Task<FormTemplate> AddForm(FormTemplateDto form);
         public Task<FormTemplateDto> GetForm(Guid Id);
         public Task UpdateForm(Guid Id, FormTemplateDto form);
         public Task DeleteForm(Guid Id);

@@ -1,4 +1,5 @@
-﻿using IntelligentFormsAPI.Application.Interfaces;
+﻿using FluentValidation;
+using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Models;
 using IntelligentFormsAPI.Infrastructure.Contexts;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,14 @@ namespace IntelligentFormsAPI.Controllers
     {
         private readonly ILogger<UsersController> logger;
         private readonly IUserService userService;
+        private readonly IValidator<UserSignUpDto> userValidator;
 
-        public UsersController(IUserService userService, ILogger<UsersController> logger)
+        public UsersController(IUserService userService, ILogger<UsersController> logger,
+            IValidator<UserSignUpDto> userValidator)
         {
             this.userService = userService;
             this.logger = logger;
+            this.userValidator = userValidator;
         }
 
         [HttpPost, Route("SignUp")]
@@ -22,6 +26,11 @@ namespace IntelligentFormsAPI.Controllers
         {
             try
             {
+                var result = await userValidator.ValidateAsync(userSignUpDto);
+
+                if (!result.IsValid)
+                    return BadRequest(result.ToString());
+
                 await userService.SignUpAsync(userSignUpDto);
                 
                 return Ok();
@@ -30,7 +39,7 @@ namespace IntelligentFormsAPI.Controllers
             {
                 logger.LogError(ex.Message);
                 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
 
         }

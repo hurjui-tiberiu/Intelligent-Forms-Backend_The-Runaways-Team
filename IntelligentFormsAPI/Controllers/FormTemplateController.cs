@@ -32,21 +32,23 @@ namespace IntelligentFormsAPI.Controllers
                 return BadRequest();
             }
         }
+        
         [HttpPost]
         public async Task<ActionResult> AddFormTemplate(FormTemplateDto formDto)
         {
             try
             {
-                await formService.AddForm(formDto);
-                return Ok();
+               var form=  await formService.AddForm(formDto);
+                return Ok(form);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
+        
         [HttpPatch("{id}")]
         public async Task<ActionResult> UpdateFormTemplate([FromBody]FormTemplateDto formDto, Guid id)
         {
@@ -62,6 +64,7 @@ namespace IntelligentFormsAPI.Controllers
                 return BadRequest();
             }
         }
+        
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteFormTemplate(Guid id)
         {
