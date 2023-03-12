@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Models;
+using IntelligentFormsAPI.Application.Models.Form;
 using IntelligentFormsAPI.Domain.Entities;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
 
@@ -20,7 +21,7 @@ namespace IntelligentFormsAPI.Application.Services
             this.userRepository = userRepository;
         }
 
-        public async Task<Form> AddForm(FormDto formDto, Guid userId)
+        public async Task<FormCreateResponseDto?> AddForm(FormDto formDto, Guid userId)
         {
             var user = await userRepository.GetUserById(userId);
 
@@ -32,14 +33,14 @@ namespace IntelligentFormsAPI.Application.Services
 
             var savedForm = await formRepository.CreateForm(form);
 
-            return savedForm;
+            return mapper.Map<FormCreateResponseDto>(savedForm);
         }
-
-        public async Task<List<Form>?> GetFormsByUserIdAsync(Guid userID)
+        
+        public async Task<List<FormCreateResponseDto>?> GetFormsByUserIdAsync(Guid userID)
         {
             var forms = await formRepository.GetFormsByUserId(userID);
 
-            return forms;
+            return mapper.Map<List<FormCreateResponseDto>>(forms);
         }
 
         public async Task DeleteForm(Guid Id)
@@ -48,12 +49,6 @@ namespace IntelligentFormsAPI.Application.Services
 
             await formRepository.DeleteFormByIdAsync(form);
         }
-
-        public async Task<Form?> GetForm(Guid Id)
-        {
-            return await formRepository.GetFormByIdAsync(Id);
-        }
-
         public async Task UpdateForm(Guid Id, FormDto formDto)
         {
 
@@ -67,5 +62,13 @@ namespace IntelligentFormsAPI.Application.Services
             await formRepository.UpdateForm(form);
 
         }
+
+        public async Task<FormCreateResponseDto?> GetForm(Guid Id)
+        {
+            var form = await formRepository.GetFormByIdAsync(Id);
+
+            return mapper.Map<FormCreateResponseDto>(form);
+        }
+
     }
 }
