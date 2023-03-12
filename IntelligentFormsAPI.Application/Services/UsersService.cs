@@ -1,19 +1,19 @@
 using AutoMapper;
 using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Models;
+using IntelligentFormsAPI.Application.Models.User;
 using IntelligentFormsAPI.Domain.Entities;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
 using Newtonsoft.Json;
-using System.Text.Json;
 
 namespace IntelligentFormsAPI.Application.Services
 {
-    public class UserService : IUserService
+    public class UsersService : IUsersService
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUsersRepository userRepository;
         private readonly IMapper mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UsersService(IUsersRepository userRepository, IMapper mapper)
         {
             this.userRepository = userRepository;
             this.mapper = mapper;
@@ -38,17 +38,17 @@ namespace IntelligentFormsAPI.Application.Services
 
             if (user is null)
                 throw new UnauthorizedAccessException("Account does not exist");
-            
+
             if (!user.EmailAddress.Equals(userLoginDto.EmailAddress) || !userLoginDto.Password.Equals(user.Password))
                 throw new UnauthorizedAccessException("Invalid email or password");
-            
+
             return mapper.Map<UserSignInResponseDto>(user);
         }
 
         public async Task SignUpAsync(UserSignUpDto userSignUpDto)
         {
             var user = await userRepository.GetUserByEmail(userSignUpDto.EmailAddress);
-            if(user is not null)
+            if (user is not null)
                 throw new InvalidOperationException("Account with provided email already exists");
 
             user = await userRepository.GetUserByName(userSignUpDto.Name);
@@ -56,7 +56,7 @@ namespace IntelligentFormsAPI.Application.Services
                 throw new InvalidOperationException("Account with provided name already exists");
 
             user = mapper.Map<User>(userSignUpDto);
-            
+
             await userRepository.CreateUserAsync(user);
         }
 

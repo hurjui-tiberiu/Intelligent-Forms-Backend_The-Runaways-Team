@@ -6,9 +6,9 @@ using IntelligentFormsAPI.Domain.Enums;
 
 namespace IntelligentFormsAPI.Application.Mapper
 {
-    public class TemplateProfile : Profile
+    public class FormProfile : Profile
     {
-        public TemplateProfile()
+        public FormProfile()
         {
             CreateMap<FormDto, Form>();
 

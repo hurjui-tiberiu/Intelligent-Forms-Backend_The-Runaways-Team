@@ -1,8 +1,7 @@
-﻿namespace IntelligentFormsAPI.Domain.Entities
+﻿namespace IntelligentFormsAPI.Application.Models
 {
-    public record User
+    public class UserSignUpDto
     {
-        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public string Address { get; set; } = null!;
         public string EmailAddress { get; set; } = null!;

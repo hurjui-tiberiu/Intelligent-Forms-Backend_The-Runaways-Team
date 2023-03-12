@@ -7,21 +7,20 @@ using IntelligentFormsAPI.Application.Services;
 using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
 using IntelligentFormsAPI.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUsersService, UsersService>();
 
-builder.Services.AddScoped<ISubmissionRepository, SubmissionRepository>();
-builder.Services.AddScoped<ISubmissionService, SubmissionService>();
+builder.Services.AddScoped<ISubmissionsRepository, SubmissionsRepository>();
+builder.Services.AddScoped<ISubmissionsService, SubmissionsService>();
 
-builder.Services.AddScoped<IFormTemplateRepository, FormTemplateRepository>();
-builder.Services.AddScoped<IFormTemplateService, FormTemplateService>();
+builder.Services.AddScoped<IFormsRepository, FormsRepository>();
+builder.Services.AddScoped<IFormsService, FormsService>();
 
 builder.Services.AddScoped<IValidator<UserSignUpDto>, UserSignUpValidator>();
 
@@ -32,19 +31,22 @@ builder.Services.AddDbContext<EFContext>(options =>
     "IntelligentFormsDB"));
 
 builder.Services.AddAutoMapper(typeof(UserProfile));
-builder.Services.AddAutoMapper(typeof(TemplateProfile));
+builder.Services.AddAutoMapper(typeof(FormProfile));
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.EnableAnnotations();
+});
+
 builder.Services.AddAuthentication();
 
 var app = builder.Build();
 
 app.UseSwagger();
 
+app.UseSwagger();
 app.UseSwaggerUI();
-
-
 
 app.UseHttpsRedirection();
 

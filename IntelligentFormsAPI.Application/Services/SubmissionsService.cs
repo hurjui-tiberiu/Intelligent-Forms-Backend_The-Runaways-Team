@@ -1,20 +1,15 @@
 ﻿using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Domain.Entities;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IntelligentFormsAPI.Application.Services
 {
-    public class SubmissionService : ISubmissionService
+    public class SubmissionsService : ISubmissionsService
     {
-        private readonly ISubmissionRepository _submissionRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly ISubmissionsRepository _submissionRepository;
+        private readonly IUsersRepository _userRepository;
 
-        public SubmissionService(ISubmissionRepository submissionRepository, IUserRepository userRepository)
+        public SubmissionsService(ISubmissionsRepository submissionRepository, IUsersRepository userRepository)
         {
             _submissionRepository = submissionRepository;
             _userRepository = userRepository;

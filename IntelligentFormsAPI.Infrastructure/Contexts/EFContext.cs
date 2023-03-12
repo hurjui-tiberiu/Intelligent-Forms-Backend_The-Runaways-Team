@@ -20,11 +20,11 @@ namespace IntelligentFormsAPI.Infrastructure.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToContainer("Users").HasPartitionKey(u=>u.Id);
+            modelBuilder.Entity<User>().ToContainer("Users").HasPartitionKey(u => u.Id);
 
             modelBuilder.Entity<Submission>().ToContainer("Submissions").HasPartitionKey(s => s.Id);
 
-            modelBuilder.Entity<FormTemplate>().ToContainer("FormTemplates").HasPartitionKey(f => f.Id);
+            modelBuilder.Entity<Form>().ToContainer("FormTemplates").HasPartitionKey(f => f.Id);
 
         }
 
@@ -33,8 +33,7 @@ namespace IntelligentFormsAPI.Infrastructure.Contexts
 
         public DbSet<Submission> Submissions { get; set; }
 
-        public DbSet<FormTemplate> FormTemplates { get; set; }
-
+        public DbSet<Form> FormTemplates { get; set; }
 
 
     }
