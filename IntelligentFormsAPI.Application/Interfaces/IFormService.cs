@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace IntelligentFormsAPI.Application.Interfaces
 {
-    public interface IFormTemplateService
+    public interface IFormService
     {
-        public Task<FormTemplate> AddForm(FormTemplateDto form, Guid userId);
-        public Task<FormTemplate?> GetForm(Guid Id);
-        public Task<List<FormTemplate>?> GetFormsByUserIdAsync(Guid userID);
-        public Task UpdateForm(Guid Id, FormTemplateDto form);
+        public Task<Form> AddForm(FormDto form, Guid userId);
+        public Task<Form?> GetForm(Guid Id);
+        public Task<List<Form>?> GetFormsByUserIdAsync(Guid userID);
+        public Task UpdateForm(Guid Id, FormDto form);
         public Task DeleteForm(Guid Id);
     }
 }

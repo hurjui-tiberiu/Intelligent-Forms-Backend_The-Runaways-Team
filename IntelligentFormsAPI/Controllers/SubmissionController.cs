@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IntelligentFormsAPI.Controllers
 {
     [Route("api/v1/"), ApiController]
-    public class SubmissionController:ControllerBase
+    public class SubmissionController : ControllerBase
     {
         private readonly ILogger<SubmissionController> logger;
         private readonly ISubmissionService submissionService;

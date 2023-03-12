@@ -1,4 +1,5 @@
 ﻿using IntelligentFormsAPI.Application.Models;
+using IntelligentFormsAPI.Application.Models.User;
 using IntelligentFormsAPI.Domain.Entities;
 using System;
 using System.Collections.Generic;

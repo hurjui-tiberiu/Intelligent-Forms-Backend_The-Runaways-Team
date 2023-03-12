@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using IntelligentFormsAPI.Application.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -13,6 +13,6 @@ namespace IntelligentFormsAPI.Application.Models.FormTemplate
         public string SectionName { get; set; }
         public string Content { get; set; }
         public string DocumentType { get; set; }
-        public List<TemplateField> Fields { get; set; }
+        public List<FormField> Fields { get; set; }
     }
 }

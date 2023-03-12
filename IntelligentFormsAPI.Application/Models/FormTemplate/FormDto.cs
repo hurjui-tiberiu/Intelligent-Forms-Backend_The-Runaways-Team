@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IntelligentFormsAPI.Application.Models
 {
-    public class FormTemplateDto
+    public class FormDto
     {
         public string FormTitle { get; set; }
         public int DataRetentionPeriod { get; set; }

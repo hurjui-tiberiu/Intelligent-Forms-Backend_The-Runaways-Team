@@ -3,19 +3,14 @@ using IntelligentFormsAPI.Application.Models;
 using IntelligentFormsAPI.Application.Models.FormTemplate;
 using IntelligentFormsAPI.Domain.Entities;
 using IntelligentFormsAPI.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IntelligentFormsAPI.Application.Mapper
 {
-    public class TemplateProfile:Profile
+    public class FormProfile : Profile
     {
-        public TemplateProfile()
+        public FormProfile()
         {
-            CreateMap<FormTemplateDto, FormTemplate>();
+            CreateMap<FormDto, Form>();
 
             CreateMap<SectionDto, Section>()
                 .ForMember(dest => dest.DocumentType,

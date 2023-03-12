@@ -1,11 +1,6 @@
 ﻿using IntelligentFormsAPI.Domain.Entities;
 using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IntelligentFormsAPI.Infrastructure.Repositories
 {
@@ -27,9 +22,9 @@ namespace IntelligentFormsAPI.Infrastructure.Repositories
         public async Task DeleteSubmissionAsync(Guid id)
         {
             var submission = await eFContext.Submissions.FindAsync(id);
-            
-            if(submission is not null)
-                 eFContext.Submissions.Remove(submission);
+
+            if (submission is not null)
+                eFContext.Submissions.Remove(submission);
             await eFContext.SaveChangesAsync();
         }
 

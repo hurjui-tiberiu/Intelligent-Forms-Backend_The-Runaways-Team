@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace IntelligentFormsAPI.Application.Models
 {
-    public class UserDto
+    public record UserSignInDto
     {
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string EmailAddress { get; set; }
+        public string EmailAddress { get; set; } = null!;
+        public string Password { get; set; } = null!;
     }
 }
