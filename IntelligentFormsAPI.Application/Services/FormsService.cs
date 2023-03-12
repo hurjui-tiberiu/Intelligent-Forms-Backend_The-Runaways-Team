@@ -35,7 +35,7 @@ namespace IntelligentFormsAPI.Application.Services
 
             return mapper.Map<FormCreateResponseDto>(savedForm);
         }
-
+        
         public async Task<List<FormCreateResponseDto>?> GetFormsByUserIdAsync(Guid userID)
         {
             var forms = await formRepository.GetFormsByUserId(userID);
@@ -49,7 +49,6 @@ namespace IntelligentFormsAPI.Application.Services
 
             await formRepository.DeleteFormByIdAsync(form);
         }
-
         public async Task UpdateForm(Guid Id, FormDto formDto)
         {
 

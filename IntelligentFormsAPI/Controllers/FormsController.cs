@@ -1,6 +1,6 @@
 ﻿using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Models;
-using IntelligentFormsAPI.Domain.Entities;
+
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -22,6 +22,7 @@ namespace IntelligentFormsAPI.Controllers
         [SwaggerOperation(Summary = "Get a form by id")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetFormTemplateById(Guid id)
+
         {
             try
             {
@@ -40,6 +41,7 @@ namespace IntelligentFormsAPI.Controllers
         [SwaggerOperation(Summary = "Get all forms by user id")]
         [HttpGet]
         public async Task<IActionResult> GetFormTemplatesByUserId([FromQuery] Guid userid)
+
         {
             try
             {
@@ -75,12 +77,13 @@ namespace IntelligentFormsAPI.Controllers
 
         [SwaggerOperation(Summary = "Update a form")]
         [HttpPut("{id}")]
+
         public async Task<IActionResult> UpdateFormTemplate([FromBody] FormDto formDto, Guid id)
         {
             try
             {
                 await formService.UpdateForm(id, formDto);
-                
+
                 return Ok();
             }
             catch (Exception ex)
