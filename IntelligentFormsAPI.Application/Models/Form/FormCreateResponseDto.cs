@@ -1,18 +1,12 @@
 ﻿using IntelligentFormsAPI.Application.Models.FormTemplate;
-using IntelligentFormsAPI.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace IntelligentFormsAPI.Application.Models
+namespace IntelligentFormsAPI.Application.Models.Form
 {
-    public class FormDto
+    public class FormCreateResponseDto
     {
+        public Guid  Id { get; set; }
         public string FormTitle { get; set; } = null!;
         public int DataRetentionPeriod { get; set; }
         public List<SectionDto> Sections { get; set; } = null!;
-
     }
 }

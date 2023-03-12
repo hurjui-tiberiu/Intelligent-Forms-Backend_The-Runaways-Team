@@ -1,5 +1,6 @@
 ﻿using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Models;
+using IntelligentFormsAPI.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -20,7 +21,7 @@ namespace IntelligentFormsAPI.Controllers
 
         [SwaggerOperation(Summary = "Get a form by id")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<FormDto>> GetFormTemplateById(Guid id)
+        public async Task<IActionResult> GetFormTemplateById(Guid id)
         {
             try
             {
@@ -38,7 +39,7 @@ namespace IntelligentFormsAPI.Controllers
 
         [SwaggerOperation(Summary = "Get all forms by user id")]
         [HttpGet]
-        public async Task<ActionResult<List<FormDto>>> GetFormTemplatesByUserId([FromQuery] Guid userid)
+        public async Task<IActionResult> GetFormTemplatesByUserId([FromQuery] Guid userid)
         {
             try
             {
@@ -56,7 +57,7 @@ namespace IntelligentFormsAPI.Controllers
 
         [SwaggerOperation(Summary = "Create a new form")]
         [HttpPost]
-        public async Task<ActionResult> AddFormTemplate(FormDto formDto, [FromQuery] Guid userId)
+        public async Task<IActionResult> AddFormTemplate(FormDto formDto, [FromQuery] Guid userId)
         {
             try
             {
@@ -74,11 +75,12 @@ namespace IntelligentFormsAPI.Controllers
 
         [SwaggerOperation(Summary = "Update a form")]
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateFormTemplate([FromBody] FormDto formDto, Guid id)
+        public async Task<IActionResult> UpdateFormTemplate([FromBody] FormDto formDto, Guid id)
         {
             try
             {
                 await formService.UpdateForm(id, formDto);
+                
                 return Ok();
             }
             catch (Exception ex)
@@ -91,7 +93,7 @@ namespace IntelligentFormsAPI.Controllers
 
         [SwaggerOperation(Summary = "Delete a form")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteFormTemplate(Guid id)
+        public async Task<IActionResult> DeleteFormTemplate(Guid id)
         {
             try
             {
