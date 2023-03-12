@@ -10,10 +10,10 @@ namespace IntelligentFormsAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly ILogger<UsersController> logger;
-        private readonly IUserService userService;
+        private readonly IUsersService userService;
         private readonly IValidator<UserSignUpDto> userValidator;
 
-        public UsersController(IUserService userService, ILogger<UsersController> logger,
+        public UsersController(IUsersService userService, ILogger<UsersController> logger,
             IValidator<UserSignUpDto> userValidator)
         {
             this.userService = userService;
@@ -62,7 +62,7 @@ namespace IntelligentFormsAPI.Controllers
             }
         }
 
-        [SwaggerOperation(Summary = "Get a user by id")]
+        [SwaggerOperation(Summary = "Update a user by id")]
         [HttpPatch, Route("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, dynamic patchUserDto)
         {

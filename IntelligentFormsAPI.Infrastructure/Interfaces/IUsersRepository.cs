@@ -2,7 +2,7 @@
 
 namespace IntelligentFormsAPI.Infrastructure.Interfaces
 {
-    public interface IUserRepository
+    public interface IUsersRepository
     {
         public Task<User?> GetUserByEmail(string email);
         public Task UpdateUserAsync(User user);

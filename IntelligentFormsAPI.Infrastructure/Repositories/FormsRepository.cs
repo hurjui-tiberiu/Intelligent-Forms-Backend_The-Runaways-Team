@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntelligentFormsAPI.Infrastructure.Repositories
 {
-    public class FormRepository : IFormRepository
+    public class FormsRepository : IFormsRepository
     {
 
         private readonly EFContext efContext;
 
-        public FormRepository(EFContext efContext)
+        public FormsRepository(EFContext efContext)
         {
             this.efContext = efContext;
         }

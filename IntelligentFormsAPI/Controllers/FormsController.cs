@@ -9,10 +9,10 @@ namespace IntelligentFormsAPI.Controllers
     [ApiController]
     public class FormsController : ControllerBase
     {
-        private readonly IFormService formService;
+        private readonly IFormsService formService;
         private readonly ILogger<FormsController> logger;
 
-        public FormsController(IFormService formService, ILogger<FormsController> logger)
+        public FormsController(IFormsService formService, ILogger<FormsController> logger)
         {
             this.formService = formService;
             this.logger = logger;
@@ -25,7 +25,7 @@ namespace IntelligentFormsAPI.Controllers
             try
             {
                 var form = await formService.GetForm(id);
-                
+
                 return Ok(form);
             }
             catch (Exception ex)
@@ -61,7 +61,7 @@ namespace IntelligentFormsAPI.Controllers
             try
             {
                 var form = await formService.AddForm(formDto, userId);
-                
+
                 return Ok(form);
             }
             catch (Exception ex)

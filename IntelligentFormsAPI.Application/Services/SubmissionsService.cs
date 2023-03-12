@@ -4,12 +4,12 @@ using IntelligentFormsAPI.Infrastructure.Interfaces;
 
 namespace IntelligentFormsAPI.Application.Services
 {
-    public class SubmissionService : ISubmissionService
+    public class SubmissionsService : ISubmissionsService
     {
-        private readonly ISubmissionRepository _submissionRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly ISubmissionsRepository _submissionRepository;
+        private readonly IUsersRepository _userRepository;
 
-        public SubmissionService(ISubmissionRepository submissionRepository, IUserRepository userRepository)
+        public SubmissionsService(ISubmissionsRepository submissionRepository, IUsersRepository userRepository)
         {
             _submissionRepository = submissionRepository;
             _userRepository = userRepository;

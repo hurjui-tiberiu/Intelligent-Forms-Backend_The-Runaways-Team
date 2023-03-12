@@ -8,12 +8,12 @@ using Newtonsoft.Json;
 
 namespace IntelligentFormsAPI.Application.Services
 {
-    public class UserService : IUserService
+    public class UsersService : IUsersService
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUsersRepository userRepository;
         private readonly IMapper mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UsersService(IUsersRepository userRepository, IMapper mapper)
         {
             this.userRepository = userRepository;
             this.mapper = mapper;

@@ -6,14 +6,14 @@ using IntelligentFormsAPI.Infrastructure.Interfaces;
 
 namespace IntelligentFormsAPI.Application.Services
 {
-    public class FormService : IFormService
+    public class FormsService : IFormsService
     {
-        private readonly IFormRepository formRepository;
+        private readonly IFormsRepository formRepository;
         private readonly IMapper mapper;
-        private readonly IUserRepository userRepository;
+        private readonly IUsersRepository userRepository;
 
-        public FormService(IFormRepository formRepository, IMapper mapper,
-        IUserRepository userRepository)
+        public FormsService(IFormsRepository formRepository, IMapper mapper,
+        IUsersRepository userRepository)
         {
             this.formRepository = formRepository;
             this.mapper = mapper;

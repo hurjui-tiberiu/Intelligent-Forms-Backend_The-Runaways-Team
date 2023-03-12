@@ -2,7 +2,7 @@
 
 namespace IntelligentFormsAPI.Infrastructure.Interfaces
 {
-    public interface IFormRepository
+    public interface IFormsRepository
     {
         public Task<Form> CreateForm(Form form);
         public Task<Form?> GetFormByIdAsync(Guid Id);

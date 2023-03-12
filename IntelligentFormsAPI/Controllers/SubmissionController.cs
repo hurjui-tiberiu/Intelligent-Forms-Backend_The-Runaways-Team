@@ -8,9 +8,9 @@ namespace IntelligentFormsAPI.Controllers
     public class SubmissionController : ControllerBase
     {
         private readonly ILogger<SubmissionController> logger;
-        private readonly ISubmissionService submissionService;
+        private readonly ISubmissionsService submissionService;
 
-        public SubmissionController(ILogger<SubmissionController> logger, ISubmissionService submissionService)
+        public SubmissionController(ILogger<SubmissionController> logger, ISubmissionsService submissionService)
         {
             this.logger = logger;
             this.submissionService = submissionService;

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntelligentFormsAPI.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UsersRepository : IUsersRepository
     {
         private readonly EFContext context;
 
-        public UserRepository(EFContext context)
+        public UsersRepository(EFContext context)
         {
             this.context = context;
         }

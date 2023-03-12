@@ -4,11 +4,11 @@ using IntelligentFormsAPI.Infrastructure.Interfaces;
 
 namespace IntelligentFormsAPI.Infrastructure.Repositories
 {
-    public class SubmissionRepository : ISubmissionRepository
+    public class SubmissionsRepository : ISubmissionsRepository
     {
         private readonly EFContext eFContext;
 
-        public SubmissionRepository(EFContext eFContext)
+        public SubmissionsRepository(EFContext eFContext)
         {
             this.eFContext = eFContext;
         }

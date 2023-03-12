@@ -2,7 +2,7 @@
 {
     public record User
     {
-        public Guid Id { get; set;}
+        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public string Address { get; set; } = null!;
         public string EmailAddress { get; set; } = null!;

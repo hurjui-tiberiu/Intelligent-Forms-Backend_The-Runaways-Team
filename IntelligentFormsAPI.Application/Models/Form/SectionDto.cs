@@ -10,9 +10,9 @@ namespace IntelligentFormsAPI.Application.Models.FormTemplate
 {
     public class SectionDto
     {
-        public string SectionName { get; set; }
-        public string Content { get; set; }
-        public string DocumentType { get; set; }
-        public List<FormField> Fields { get; set; }
+        public string SectionName { get; set; } = null!;
+        public string Content { get; set; } = null!;
+        public string DocumentType { get; set; } = null!;
+        public List<FormField> Fields { get; set; } = null!;
     }
 }

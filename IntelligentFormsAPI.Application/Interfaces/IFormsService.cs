@@ -1,15 +1,9 @@
 ﻿using IntelligentFormsAPI.Application.Models;
-using IntelligentFormsAPI.Application.Models.FormTemplate;
 using IntelligentFormsAPI.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IntelligentFormsAPI.Application.Interfaces
 {
-    public interface IFormService
+    public interface IFormsService
     {
         public Task<Form> AddForm(FormDto form, Guid userId);
         public Task<Form?> GetForm(Guid Id);

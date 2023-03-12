@@ -2,7 +2,7 @@
 
 namespace IntelligentFormsAPI.Infrastructure.Interfaces
 {
-    public interface ISubmissionRepository
+    public interface ISubmissionsRepository
     {
         public Task<Submission> GetSubmissionByIdAsync(Guid id);
         public Task DeleteSubmissionAsync(Guid id);

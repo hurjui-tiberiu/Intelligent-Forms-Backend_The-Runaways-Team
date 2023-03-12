@@ -13,14 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUsersService, UsersService>();
 
-builder.Services.AddScoped<ISubmissionRepository, SubmissionRepository>();
-builder.Services.AddScoped<ISubmissionService, SubmissionService>();
+builder.Services.AddScoped<ISubmissionsRepository, SubmissionsRepository>();
+builder.Services.AddScoped<ISubmissionsService, SubmissionsService>();
 
-builder.Services.AddScoped<IFormRepository, FormRepository>();
-builder.Services.AddScoped<IFormService, FormService>();
+builder.Services.AddScoped<IFormsRepository, FormsRepository>();
+builder.Services.AddScoped<IFormsService, FormsService>();
 
 builder.Services.AddScoped<IValidator<UserSignUpDto>, UserSignUpValidator>();
 
