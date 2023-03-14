@@ -22,6 +22,7 @@ namespace IntelligentFormsAPI.Application.Mapper
                 opt => opt.MapFrom(
                     src => Enum.Parse<ScannableDocumentType>(src.DocumentType)));
 
+
             CreateMap<Section, SectionDto>()
                 .ForMember(dest => dest.DocumentType,
                 opt => opt.MapFrom(

@@ -1,35 +1,60 @@
-﻿using IntelligentFormsAPI.Application.Interfaces;
+﻿using AutoMapper;
+using IntelligentFormsAPI.Application.Interfaces;
+using IntelligentFormsAPI.Application.Models.Submission;
 using IntelligentFormsAPI.Domain.Entities;
+using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
 
 namespace IntelligentFormsAPI.Application.Services
 {
     public class SubmissionsService : ISubmissionsService
     {
-        private readonly ISubmissionsRepository _submissionRepository;
-        private readonly IUsersRepository _userRepository;
+        private readonly ISubmissionsRepository submissionRepository;
+        private readonly IFormsRepository formRepository;
+        private readonly IMapper mapper;
 
-        public SubmissionsService(ISubmissionsRepository submissionRepository, IUsersRepository userRepository)
+        public SubmissionsService(ISubmissionsRepository submissionRepository, IFormsRepository formsRepository,
+            IMapper mapper)
         {
-            _submissionRepository = submissionRepository;
-            _userRepository = userRepository;
+            this.submissionRepository = submissionRepository;
+            this.formRepository = formsRepository;
+            this.mapper = mapper;
         }
 
-        public async Task<Submission> GetSubmissionByIdAsync(Guid id)
+        public async Task<SubmissionRequestDto> GetSubmissionByIdAsync(Guid id)
         {
-            return await _submissionRepository.GetSubmissionByIdAsync(id);
+            var submission= await submissionRepository.GetSubmissionByIdAsync(id);
+
+            return mapper.Map<SubmissionRequestDto>(submission);
         }
 
         public async Task DeleteSubmissionAsync(Guid id)
         {
-            await _submissionRepository.DeleteSubmissionAsync(id);
+            await submissionRepository.DeleteSubmissionAsync(id);
         }
 
-        public async Task CreateSubmissionAsync(Submission submission)
+        public async Task<SubmissionRequestDto> CreateSubmissionAsync(SubmissionDto submissionDto, Guid formId)
         {
-            await _submissionRepository.CreateSubmissionAsync(submission);
+
+            var form = await formRepository.GetFormByIdAsync(formId);
+            
+            if(form is null)
+                throw new ArgumentException("Form not found");
+
+            var submission = mapper.Map<Submission>(submissionDto);
+            submission.FormId = formId;
+
+            var savedSubmission = await submissionRepository.CreateSubmissionAsync(submission);
+
+            return mapper.Map<SubmissionRequestDto>(savedSubmission);
         }
 
+        public async Task<List<SubmissionRequestDto>> GetSubmissionByFormId(Guid formId)
+        {
+            var submissions = await submissionRepository.GetSubmissionByFormIdAsync(formId);
+
+            return mapper.Map<List<SubmissionRequestDto>>(submissions);
+        }
     }
 }
 

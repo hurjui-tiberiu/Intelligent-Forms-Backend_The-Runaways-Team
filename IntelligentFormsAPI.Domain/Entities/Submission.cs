@@ -3,8 +3,8 @@
     public record Submission
     {
         public Guid Id { get; set; }
-        public List<SubmissionField> Fields { get; set; } = null!;
-        public List<string> Sections { get; set; } = null!;
-        public DateTime TimeStamp { get; set; }
+        public Guid FormId { get; set; }
+        public List<SubmissionField> SubmissionFields { get; set; } = null!;
+        public string Content { get; set; } = null!;
     }
 }
