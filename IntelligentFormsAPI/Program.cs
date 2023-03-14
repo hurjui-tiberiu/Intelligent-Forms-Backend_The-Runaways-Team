@@ -32,6 +32,7 @@ builder.Services.AddDbContext<EFContext>(options =>
 
 builder.Services.AddAutoMapper(typeof(UserProfile));
 builder.Services.AddAutoMapper(typeof(FormProfile));
+builder.Services.AddAutoMapper(typeof(SubmissionProfile));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

@@ -1,39 +1,40 @@
 ﻿using IntelligentFormsAPI.Application.Interfaces;
+using IntelligentFormsAPI.Application.Models.Submission;
 using IntelligentFormsAPI.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntelligentFormsAPI.Controllers
 {
     [Route("api/v1/"), ApiController]
-    public class SubmissionController : ControllerBase
+    public class SubmissionsController : ControllerBase
     {
-        private readonly ILogger<SubmissionController> logger;
+        private readonly ILogger<SubmissionsController> logger;
         private readonly ISubmissionsService submissionService;
 
-        public SubmissionController(ILogger<SubmissionController> logger, ISubmissionsService submissionService)
+        public SubmissionsController(ILogger<SubmissionsController> logger, ISubmissionsService submissionService)
         {
             this.logger = logger;
             this.submissionService = submissionService;
         }
 
-        [HttpPost, Route("Users/{userId}/FormTemplates/{formTemplateId}/Submissions/{submissionId}")]
-        public async Task<IActionResult> CreateSubmission(Submission submission)
+        [HttpPost, Route("submissions")]
+        public async Task<IActionResult> CreateSubmission(SubmissionDto submissionDto, [FromQuery]  Guid formId)
         {
             try
             {
-                await submissionService.CreateSubmissionAsync(submission);
+                var submission = await submissionService.CreateSubmissionAsync(submissionDto, formId);
 
-                return Ok();
+                return Ok(submission);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
-        [HttpGet, Route("Submissions/{submissionId}")]
+        [HttpGet, Route("submissions/{submissionId}")]
         public async Task<IActionResult> GetSubmissionById(Guid submissionId)
         {
             try
@@ -46,7 +47,24 @@ namespace IntelligentFormsAPI.Controllers
             {
                 logger.LogError(ex.Message);
 
-                return BadRequest();
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet, Route("submissions")]
+        public async Task<IActionResult> GetSubmissionByFormIdAsync([FromQuery]Guid formId)
+        {
+            try
+            {
+                var submissions = await submissionService.GetSubmissionByFormId(formId);
+
+                return Ok(submissions);
+            }
+            catch(Exception ex)
+            {
+                logger.LogError(ex.Message);
+
+                return BadRequest(ex.Message);
             }
         }
 
