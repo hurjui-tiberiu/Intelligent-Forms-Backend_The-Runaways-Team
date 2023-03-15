@@ -18,8 +18,6 @@ namespace IntelligentFormsAPI.Infrastructure.Repositories
         {
             await eFContext.Submissions.AddAsync(submission);
             await eFContext.SaveChangesAsync();
-            
-            return submission;
         }
 
         public async Task DeleteSubmissionAsync(Submission submission)
