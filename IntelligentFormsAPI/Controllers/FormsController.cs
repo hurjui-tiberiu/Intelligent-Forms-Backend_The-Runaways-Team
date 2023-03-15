@@ -41,7 +41,6 @@ namespace IntelligentFormsAPI.Controllers
         [SwaggerOperation(Summary = "Get all forms by user id")]
         [HttpGet]
         public async Task<IActionResult> GetFormTemplatesByUserId([FromQuery] Guid userid)
-
         {
             try
             {

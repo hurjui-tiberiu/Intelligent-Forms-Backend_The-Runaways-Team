@@ -6,8 +6,10 @@ using IntelligentFormsAPI.Application.Models.FluentValidation;
 using IntelligentFormsAPI.Application.Services;
 using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
+using IntelligentFormsAPI.Infrastructure.Quartz;
 using IntelligentFormsAPI.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,23 @@ builder.Services.AddDbContext<EFContext>(options =>
     options.UseCosmos("https://f447355d-0ee0-4-231-b9ee.documents.azure.com:443/",
     "FSQsotIEON6q0I18CON0jelb5ZJFXxkfoVNvWde9FfBQxO0o5pmvgUaRLXgFYIMOvS8Eh8EG2ViJACDbGZaloA==",
     "IntelligentFormsDB"));
+
+builder.Services.AddQuartz(q =>
+{
+    q.UseMicrosoftDependencyInjectionJobFactory();
+
+    var jobKey = new JobKey("SendReminderEmailJob");
+
+    q.AddJob<DeleteOldSubmissionsJob>(opts => opts.WithIdentity(jobKey));
+
+    q.AddTrigger(opts => opts
+        .ForJob(jobKey)
+        .WithIdentity("DeleteOldSubmissionsJob-trigger")
+        .WithCronSchedule("0 0 0 ? * *"));
+
+});
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+
 
 builder.Services.AddAutoMapper(typeof(UserProfile));
 builder.Services.AddAutoMapper(typeof(FormProfile));

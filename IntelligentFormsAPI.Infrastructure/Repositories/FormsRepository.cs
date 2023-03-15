@@ -30,6 +30,11 @@ namespace IntelligentFormsAPI.Infrastructure.Repositories
             await efContext.SaveChangesAsync();
         }
 
+        public Task<List<Form>> GetAllFormsAsync()
+        {
+            return efContext.FormTemplates.ToListAsync();
+        }
+
         public async Task<Form?> GetFormByIdAsync(Guid Id)
         {
             var form = await efContext.FormTemplates.FindAsync(Id);

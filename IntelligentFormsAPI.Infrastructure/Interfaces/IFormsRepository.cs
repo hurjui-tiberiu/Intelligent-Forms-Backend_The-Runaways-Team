@@ -9,6 +9,6 @@ namespace IntelligentFormsAPI.Infrastructure.Interfaces
         public Task<List<Form>?> GetFormsByUserId(Guid userId);
         public Task<Form> UpdateForm(Form form);
         public Task DeleteFormByIdAsync(Form formTemplate);
-
+        public Task<List<Form>> GetAllFormsAsync();
     }
 }
