@@ -29,7 +29,10 @@ namespace IntelligentFormsAPI.Application.Services
 
         public async Task DeleteSubmissionAsync(Guid id)
         {
-            await submissionRepository.DeleteSubmissionAsync(id);
+
+            var submission = await submissionRepository.GetSubmissionByIdAsync(id);
+
+            await submissionRepository.DeleteSubmissionAsync(submission);
         }
 
         public async Task<SubmissionRequestDto> CreateSubmissionAsync(SubmissionDto submissionDto, Guid formId)

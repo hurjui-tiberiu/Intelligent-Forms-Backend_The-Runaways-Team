@@ -18,16 +18,14 @@ namespace IntelligentFormsAPI.Infrastructure.Repositories
         {
             await eFContext.Submissions.AddAsync(submission);
             await eFContext.SaveChangesAsync();
-
+            
             return submission;
         }
 
-        public async Task DeleteSubmissionAsync(Guid id)
+        public async Task DeleteSubmissionAsync(Submission submission)
         {
-            var submission = await eFContext.Submissions.FindAsync(id);
-
-            if (submission is not null)
-                eFContext.Submissions.Remove(submission);
+            eFContext.Submissions.Remove(submission);
+            
             await eFContext.SaveChangesAsync();
         }
 
