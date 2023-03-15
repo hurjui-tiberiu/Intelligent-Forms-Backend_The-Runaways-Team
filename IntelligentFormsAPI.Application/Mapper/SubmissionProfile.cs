@@ -11,7 +11,9 @@ namespace IntelligentFormsAPI.Application.Mapper
         {
             CreateMap<Submission, SubmissionRequestDto>()
             .ForMember(dest => dest.Content,
-                opt => opt.MapFrom(src => Encoding.UTF8.GetString(Convert.FromBase64String(src.Content))));
+                opt => opt.MapFrom(src => Encoding.UTF8.GetString(Convert.FromBase64String(src.Content))))
+            .ForMember(dest => dest.TimeStamp,
+                opt => opt.MapFrom(src => src.TimeStamp.ToString("dd/MM/yy H:mm")));
 
 
             CreateMap<SubmissionDto, Submission>()
