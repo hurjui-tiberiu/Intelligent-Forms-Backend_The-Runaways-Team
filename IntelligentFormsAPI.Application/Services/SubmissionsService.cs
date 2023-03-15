@@ -1,8 +1,7 @@
-﻿using AutoMapper;
+using AutoMapper;
 using IntelligentFormsAPI.Application.Interfaces;
 using IntelligentFormsAPI.Application.Models.Submission;
 using IntelligentFormsAPI.Domain.Entities;
-using IntelligentFormsAPI.Infrastructure.Contexts;
 using IntelligentFormsAPI.Infrastructure.Interfaces;
 
 namespace IntelligentFormsAPI.Application.Services
@@ -23,7 +22,7 @@ namespace IntelligentFormsAPI.Application.Services
 
         public async Task<SubmissionRequestDto> GetSubmissionByIdAsync(Guid id)
         {
-            var submission= await submissionRepository.GetSubmissionByIdAsync(id);
+            var submission = await submissionRepository.GetSubmissionByIdAsync(id);
 
             return mapper.Map<SubmissionRequestDto>(submission);
         }
@@ -37,12 +36,13 @@ namespace IntelligentFormsAPI.Application.Services
         {
 
             var form = await formRepository.GetFormByIdAsync(formId);
-            
-            if(form is null)
+
+            if (form is null)
                 throw new ArgumentException("Form not found");
 
             var submission = mapper.Map<Submission>(submissionDto);
             submission.FormId = formId;
+            submission.TimeStamp = DateTime.Now;
 
             var savedSubmission = await submissionRepository.CreateSubmissionAsync(submission);
 

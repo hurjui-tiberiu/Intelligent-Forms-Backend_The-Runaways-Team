@@ -1,23 +1,22 @@
-﻿using AutoMapper;
-using IntelligentFormsAPI.Application.Models.Submission;
+using AutoMapper;
+using IntelligentFormsAPI.Application.Models;
+using IntelligentFormsAPI.Application.Models.User;
 using IntelligentFormsAPI.Domain.Entities;
-using System.Text;
 
 namespace IntelligentFormsAPI.Application.Mapper
 {
-    public class SubmissionProfile : Profile
+    public class UserProfile : Profile
     {
-        public SubmissionProfile()
+        public UserProfile()
         {
-            CreateMap<Submission, SubmissionRequestDto>()
-            .ForMember(dest => dest.Content,
-                opt => opt.MapFrom(src => Encoding.UTF8.GetString(Convert.FromBase64String(src.Content))));
+            CreateMap<UserSignUpDto, User>();
 
+            CreateMap<User, UserDto>();
 
-            CreateMap<SubmissionDto, Submission>()
-                .ForMember(dest => dest.Content,
-                opt => opt.MapFrom(
-                    src => Convert.ToBase64String(Encoding.UTF8.GetBytes(src.Content))));
+            CreateMap<UserPatchDto, User>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<User, UserSignInResponseDto>();
 
         }
     }
